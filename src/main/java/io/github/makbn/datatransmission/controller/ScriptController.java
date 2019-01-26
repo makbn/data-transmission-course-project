@@ -46,6 +46,17 @@ public class ScriptController {
         }
     }
 
+    @GetMapping("/script")
+    public ResponseEntity<?> script(@RequestParam(name = "path") String path) throws InternalServerException {
+        try {
+            CommandResult result = CommandExec.runScript(path);
+            return ResponseEntity.ok(ResFact.<CommandResult>build().setResult(result).get());
+        } catch (InterruptedException | IOException e) {
+            e.printStackTrace();
+            throw InternalServerException.getInstance(e.getMessage());
+        }
+    }
+
 
     @GetMapping("/ui")
     public void help(HttpServletResponse response,

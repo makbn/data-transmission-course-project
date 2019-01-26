@@ -80,7 +80,7 @@ public class AdditionalWebConfig implements WebMvcConfigurer {
     private ApiInfo apiInfo() {
         return new ApiInfo(
                 "Data Transmission Course Project",
-                "Api UI for Data Transmission Course Project",
+                "Std. Name: Mehdi Akbarian-Rastaghi Std. No. : 9312430437",
                 "0.1",
                 "Terms of service",
                 new Contact("Mehdi Akbarian-Rastaghi", "", "mehdi74akbarian@gmail.com"),
