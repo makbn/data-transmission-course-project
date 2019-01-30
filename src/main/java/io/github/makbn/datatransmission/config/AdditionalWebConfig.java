@@ -1,5 +1,6 @@
 package io.github.makbn.datatransmission.config;
 
+import io.github.makbn.datatransmission.common.AppSettings;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -67,7 +68,7 @@ public class AdditionalWebConfig implements WebMvcConfigurer {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .host("localhost:8080")
+                .host(AppSettings.HOST)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("io.github.makbn.datatransmission"))
                 .paths(PathSelectors.any())

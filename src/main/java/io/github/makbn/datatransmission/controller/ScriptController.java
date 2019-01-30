@@ -4,12 +4,14 @@ package io.github.makbn.datatransmission.controller;
 import io.github.makbn.datatransmission.common.CommandExec;
 import io.github.makbn.datatransmission.common.FileUtils;
 import io.github.makbn.datatransmission.common.ScriptLoader;
+import io.github.makbn.datatransmission.common.SerialCommHelper;
 import io.github.makbn.datatransmission.domain.Command;
 import io.github.makbn.datatransmission.domain.CommandResult;
 import io.github.makbn.datatransmission.domain.ResFact;
 import io.github.makbn.datatransmission.exception.InternalServerException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -66,5 +68,13 @@ public class ScriptController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @GetMapping("/server-test")
+    public ResponseEntity<?> server(){
+        int size = SerialCommHelper.ports().size();
+        ResponseEntity response = new RestTemplate().getForEntity("http://notify-service/notify?message=portsize"+size+"&code=1",ResponseEntity.class).getBody();
+        System.out.println("Response Received as " + response);
+        return ResponseEntity.ok(ResFact.<String>build().setResult(response.toString()).get());
     }
 }

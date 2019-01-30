@@ -1,5 +1,6 @@
 package io.github.makbn.datatransmission;
 
+import io.github.makbn.datatransmission.common.SerialCommHelper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.data.rest.RepositoryRestMvcAutoConfiguration;
@@ -16,6 +17,7 @@ public class DataTransmissionApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DataTransmissionApplication.class, args);
+		SerialCommHelper.init();
 	}
 
 }
