@@ -9,6 +9,7 @@ import io.github.makbn.datatransmission.domain.Command;
 import io.github.makbn.datatransmission.domain.CommandResult;
 import io.github.makbn.datatransmission.domain.ResFact;
 import io.github.makbn.datatransmission.exception.InternalServerException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -22,6 +23,8 @@ import java.io.IOException;
 @RequestMapping("/terminal")
 public class ScriptController {
 
+    @Autowired
+    private RestTemplate restTemplate;
 
     @GetMapping("/")
     public ResponseEntity<?> hello() throws InternalServerException {
@@ -71,9 +74,9 @@ public class ScriptController {
     }
 
     @GetMapping("/server-test")
-    public ResponseEntity<?> server(){
+    public ResponseEntity<?> server(@RequestParam(name = "url", required = false)String url){
         int size = SerialCommHelper.ports().size();
-        ResponseEntity response = new RestTemplate().getForEntity("http://notify-service/notify?message=portsize"+size+"&code=1",ResponseEntity.class).getBody();
+        String response = restTemplate.getForEntity(url!=null ?url :"http://notify-service/notify/?message=portsize"+size+"&code=1",String.class).getBody();
         System.out.println("Response Received as " + response);
         return ResponseEntity.ok(ResFact.<String>build().setResult(response.toString()).get());
     }

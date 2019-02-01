@@ -1,21 +1,25 @@
 server:
   port: 8098    #default port where the service will be started
 
-eureka:         #tells about the Eureka server details and its refresh time
-  instance:
-    leaseRenewalIntervalInSeconds: 1
-    leaseExpirationDurationInSeconds: 2
-  client:
-    serviceUrl:
-      defaultZone: http://127.0.0.1:8761/eureka/
-    healthcheck:
-      enabled: true
-    lease:
-      duration: 5
-
 spring:
   application:
     name: client-service   #current service name to be used by the eureka server
+
+eureka:         #tells about the Eureka server details and its refresh time
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    #leaseExpirationDurationInSeconds: 2
+    preferIpAddress: true
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+    healthcheck:
+      enabled: false
+    lease:
+      duration: 5
+
+
+
 
 management:
   security:
