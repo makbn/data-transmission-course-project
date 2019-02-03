@@ -74,11 +74,13 @@ public class CommandExec {
         proc.waitFor();
         System.out.println("execution end!");
         System.out.println("========================================\n\n");
-        return CommandResult.builder()
-                .input(lineIn)
-                .output(lineOut)
-                .err(lineErr)
-                .build();
+
+        CommandResult result= new CommandResult();
+        result.setInput(lineIn);
+        result.setInput(lineOut);
+        result.setErr(lineErr);
+
+        return result;
     }
 
 }
